@@ -1,8 +1,8 @@
 """
-Uses box3.xml
-Usage: python box3.py
+Uses hex1.xml
+Usage: python hex1.py
   or
-Usage: python box3.py box3.txt
+Usage: python hex1.py hex1.txt
 """
 import sys # For sys.argv
 import time
