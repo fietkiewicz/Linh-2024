@@ -1,0 +1,3 @@
+Fri May 17 16:02:21 2024
+WARNING: mju_openResource: unknown file 'hex3.xml'
+
