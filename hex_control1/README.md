@@ -23,3 +23,4 @@ GUI updates:
 * NEW: Make sure that default input file works.
 
 (c) Add a keyboard input to change direction (left, straight, right).
+* Try to use left-arrow = left, up-arrow = straight, right-arrow = right.
