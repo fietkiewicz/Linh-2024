@@ -49,9 +49,9 @@ def init_and_run():
     if tracking.get() == True:
         viewer.cam.fixedcamid = 0
         viewer.cam.type = mujoco.mjtCamera.mjCAMERA_TRACKING # following 
-        viewer.cam.elevation = int(elevation.get())
-        viewer.cam.distance = int(distance.get())
         viewer.cam.trackbodyid = int(trackbody.get()) # this is torso id
+    viewer.cam.distance = int(distance.get())
+    viewer.cam.elevation = int(elevation.get())
 
     # Hack to let it fall before moving
     for j in range(0,100):
@@ -119,7 +119,7 @@ def init_and_run():
         viewer.close()
 
     else:
-        while i < int(steps.get()):
+        while viewer.is_alive and i < int(steps.get()):
             # Controller handling
             # print('phase = ', phase, ', value = ', controllerValue)
             if phase == 0 and data.joint('pitch_mid_right').qpos[0] <= float(angle_1.get()):
@@ -170,6 +170,7 @@ def init_and_run():
                 # viewer.cam.lookat[2] += 0.01
             i += 1
             mujoco.mj_step(model, data)
+        viewer.close()
         media.write_video(save_directory.get(), frames, fps=30)
         print("Finished!")
 
