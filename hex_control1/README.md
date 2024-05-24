@@ -1,5 +1,9 @@
 # Hexapod Task #2
 
+Note: There are two programs.
+1. hex_manual.py: Manual entry of parameters for force and angle. No steering during simulation.
+2. hex_control.py: User steers using arrow keys. No manual control.
+
 Short version: 
 (a) Update GUI and add option to record video to file.
 (b) Add input boxes to GUI for camera settings.

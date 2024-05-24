@@ -250,6 +250,7 @@ class MujocoViewer(Callbacks):
             add_overlay(topleft, "Cap[t]ure frame", "Saved as %s" % fname)
         else:
             add_overlay(topleft, "Cap[t]ure frame", "")
+        add_overlay(topleft, "Current direction", self._movement.title())
         if self._movement != "straight":
             add_overlay(topleft, "Go straight", "[up arrow]")
         if self._movement != "left":
