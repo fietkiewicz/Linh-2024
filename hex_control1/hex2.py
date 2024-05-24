@@ -124,28 +124,20 @@ def init_and_run():
             # print('phase = ', phase, ', value = ', controllerValue)
             if phase == 0 and data.joint('pitch_mid_right').qpos[0] <= float(angle_1.get()):
                 phase = 1
-                printDebug(phase, data)
             elif phase == 1 and data.joint('yaw_mid_right').qpos[0] >= float(angle_2.get()):
                 phase = 2
-                printDebug(phase, data)
             elif phase == 2 and data.joint('pitch_mid_right').qpos[0] >= float(angle_3.get()):
                 phase = 3
-                printDebug(phase, data)
             elif phase == 3 and data.joint('yaw_mid_right').qpos[0] <= float(angle_4.get()):
                 phase = 4
-                printDebug(phase, data)
             elif phase == 4 and data.joint('pitch_mid_left').qpos[0] <= float(angle_5.get()):
                 phase = 5
-                printDebug(phase, data)
             elif phase == 5 and data.joint('yaw_mid_left').qpos[0] <= float(angle_6.get()):
                 phase = 6
-                printDebug(phase, data)
             elif phase == 6 and data.joint('pitch_mid_left').qpos[0] >= float(angle_7.get()):
                 phase = 7
-                printDebug(phase, data)
             elif phase == 7 and data.joint('yaw_mid_left').qpos[0] >= float(angle_8.get()):
                 phase = 0
-                printDebug(phase, data)
 
             # Apply force
             data.ctrl[0] = controllerYaw0[phase] * (-1) # yaw_front_left (GROUP 0)

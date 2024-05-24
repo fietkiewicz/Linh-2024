@@ -34,6 +34,7 @@ class Callbacks:
         self._loop_count = 0
         self._advance_by_one_step = False
         self._hide_menus = hide_menus
+        self._movement = "left"
 
     def _key_callback(self, window, key, scancode, action, mods):
         if action != glfw.RELEASE:
@@ -51,9 +52,9 @@ class Callbacks:
         elif key == glfw.KEY_SPACE and self._paused is not None:
             self._paused = not self._paused
         # Advances simulation by one step.
-        elif key == glfw.KEY_RIGHT and self._paused is not None:
-            self._advance_by_one_step = True
-            self._paused = True
+        # elif key == glfw.KEY_RIGHT and self._paused is not None:
+        #     self._advance_by_one_step = True
+        #     self._paused = True
         # Slows down simulation
         elif key == glfw.KEY_S and mods != glfw.MOD_CONTROL:
             self._run_speed /= 2.0
@@ -138,6 +139,12 @@ class Callbacks:
                 print("Camera config saved at {}".format(self.CONFIG_PATH))
             except Exception as e:
                 print(e)
+        elif key == glfw.KEY_UP:
+            self._movement = "straight"
+        elif key == glfw.KEY_LEFT:
+            self._movement = "left"
+        elif key == glfw.KEY_RIGHT:
+            self._movement = "right"
         # Quit
         if key == glfw.KEY_ESCAPE:
             print("Pressed ESC")
