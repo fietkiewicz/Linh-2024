@@ -17,9 +17,10 @@ def init_and_run():
     phase = 0
 
     viewer = mujocoviewer2.MujocoViewer(model, data)
-    viewer.cam.fixedcamid = 0
-    viewer.cam.type = mujoco.mjtCamera.mjCAMERA_TRACKING # following 
-    viewer.cam.trackbodyid = int(trackbody.get()) # this is torso id
+    if tracking.get() == True:
+        viewer.cam.fixedcamid = 0
+        viewer.cam.type = mujoco.mjtCamera.mjCAMERA_TRACKING # following 
+        viewer.cam.trackbodyid = int(trackbody.get()) # this is torso id
     viewer.cam.distance = int(distance.get())
     viewer.cam.elevation = int(elevation.get())
 
@@ -83,6 +84,7 @@ def save_setting():
 
     fileload = fd.asksaveasfile(mode = "w+")
     save = []
+    save.append(str(tracking.get()))
     save.append(str(speed.get()))
     save.append(str(elevation.get()))
     save.append(str(distance.get()))
@@ -107,32 +109,42 @@ def load_setting(filename = ""):
     distance.delete(0, tk.END)
     trackbody.delete(0, tk.END)
 
-    speed.insert(0, int(save[0].strip()))
-    elevation.insert(0, int(save[1].strip()))
-    distance.insert(0, int(save[2].strip()))
-    trackbody.insert(0, int(save[3].strip()))
+    if save[0].strip() == "True":
+        tracking.set(True)
+    else:
+        tracking.set(False)
+
+    speed.insert(0, int(save[1].strip()))
+    elevation.insert(0, int(save[2].strip()))
+    distance.insert(0, int(save[3].strip()))
+    trackbody.insert(0, int(save[4].strip()))
 
 window = tk.Tk()
 window.title("Hexapod Control")
-window.geometry("210x100")
+window.geometry("240x140")
 
-speed_label = Label(window, text="Speed").grid(row=0, column=0)
-elevation_label = Label(window, text="Elevation").grid(row=0, column=1)
-distance_label = Label(window, text="Distance").grid(row=0, column=2)
-trackbody_label = Label(window, text="Trackbody").grid(row=0, column=3)
+tracking = BooleanVar()
+camera_label = Label(window, text="Camera").grid(row=0, column=0, pady=2, sticky=W)
+track_camera = Radiobutton(window, text="Tracking", variable=tracking, value=True).grid(row=0, column=2, sticky=W)
+fixed_camera = Radiobutton(window, text="Fixed", variable=tracking, value=False).grid(row=0, column=3, sticky=W)
+
+speed_label = Label(window, text="Speed").grid(row=1, column=0)
+elevation_label = Label(window, text="Elevation").grid(row=1, column=1)
+distance_label = Label(window, text="Distance").grid(row=1, column=2)
+trackbody_label = Label(window, text="Trackbody").grid(row=1, column=3)
 
 speed = Entry(window, width=7)
-speed.grid(row=1, column=0, pady=2)
+speed.grid(row=2, column=0, pady=2)
 elevation = Entry(window, width=7)
-elevation.grid(row=1, column=1, pady=2)
+elevation.grid(row=2, column=1, pady=2)
 distance = Entry(window, width=7)
-distance.grid(row=1, column=2, pady=2)
+distance.grid(row=2, column=2, pady=2)
 trackbody = Entry(window, width=7)
-trackbody.grid(row=1, column=3, pady=2)
+trackbody.grid(row=2, column=3, pady=2)
 
-init_btn = Button(window, text="Init and Run", command=init_and_run, width=28).grid(row=2, column=0, columnspan=4)
-save_btn = Button(window, text="Save", width=14, command=save_setting).grid(row=3, column=0, columnspan=2)
-load_btn = Button(window, text="Load", width=14, command=load_setting).grid(row=3, column=2, columnspan=2)
+init_btn = Button(window, text="Init and Run", command=init_and_run, width=28).grid(row=3, column=0, columnspan=4)
+save_btn = Button(window, text="Save", width=14, command=save_setting).grid(row=4, column=0, columnspan=2)
+load_btn = Button(window, text="Load", width=14, command=load_setting).grid(row=4, column=2, columnspan=2)
 
 if (len(sys.argv) > 1):
     filename = sys.argv[1]
