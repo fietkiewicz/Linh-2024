@@ -72,28 +72,28 @@ def init_and_run():
         while viewer.is_alive and i < N:
             # Controller handling
             # print('phase = ', phase, ', value = ', controllerValue)
-            if phase == 0 and data.joint('pitch_mid_right').qpos[0] <= float(angle_1.get()):
+            if phase == 0 and data.joint('pitch_front_left').qpos[0] <= float(angle_1.get()):
                 phase = 1
                 printDebug(phase, data)
-            elif phase == 1 and data.joint('yaw_mid_right').qpos[0] >= float(angle_2.get()):
+            elif phase == 1 and data.joint('yaw_front_left').qpos[0] <= float(angle_2.get()):
                 phase = 2
                 printDebug(phase, data)
-            elif phase == 2 and data.joint('pitch_mid_right').qpos[0] >= float(angle_3.get()):
+            elif phase == 2 and data.joint('pitch_front_left').qpos[0] >= float(angle_3.get()):
                 phase = 3
                 printDebug(phase, data)
-            elif phase == 3 and data.joint('yaw_mid_right').qpos[0] <= float(angle_4.get()):
+            elif phase == 3 and data.joint('yaw_front_left').qpos[0] >= float(angle_4.get()):
                 phase = 4
                 printDebug(phase, data)
-            elif phase == 4 and data.joint('pitch_mid_left').qpos[0] <= float(angle_5.get()):
+            elif phase == 4 and data.joint('pitch_front_right').qpos[0] <= float(angle_5.get()):
                 phase = 5
                 printDebug(phase, data)
-            elif phase == 5 and data.joint('yaw_mid_left').qpos[0] <= float(angle_6.get()):
+            elif phase == 5 and data.joint('yaw_front_right').qpos[0] >= float(angle_6.get()):
                 phase = 6
                 printDebug(phase, data)
-            elif phase == 6 and data.joint('pitch_mid_left').qpos[0] >= float(angle_7.get()):
+            elif phase == 6 and data.joint('pitch_front_right').qpos[0] >= float(angle_7.get()):
                 phase = 7
                 printDebug(phase, data)
-            elif phase == 7 and data.joint('yaw_mid_left').qpos[0] >= float(angle_8.get()):
+            elif phase == 7 and data.joint('yaw_front_right').qpos[0] <= float(angle_8.get()):
                 phase = 0
                 printDebug(phase, data)
 
@@ -144,17 +144,17 @@ def init_and_run():
                 phase = 0
 
             # Apply force
-            data.ctrl[0] = controllerYawlf[phase] * (-1) # yaw_front_left (GROUP 0)
+            data.ctrl[0] = controllerYaw0[phase] * (-1) # yaw_front_left (GROUP 0)
             data.ctrl[1] = controllerLift0[phase] # lift_front_left (GROUP 0)
-            data.ctrl[3] = controllerYawrf[phase] * (-1) # yaw_front_right (GROUP 1)
+            data.ctrl[3] = controllerYaw1[phase] * (-1) # yaw_front_right (GROUP 1)
             data.ctrl[4] = controllerLift1[phase] # lift_front_right (GROUP 1)
-            data.ctrl[6] = controllerYawlm[phase] # yaw_mid_left (GROUP 1)
+            data.ctrl[6] = controllerYaw1[phase] # yaw_mid_left (GROUP 1)
             data.ctrl[7] = controllerLift1[phase] # lift_mid_left (GROUP 1)
-            data.ctrl[9] = controllerYawrm[phase] # yaw_mid_right (GROUP 0)
+            data.ctrl[9] = controllerYaw0[phase] # yaw_mid_right (GROUP 0)
             data.ctrl[10] = controllerLift0[phase] # lift_mid_right (GROUP 0)
-            data.ctrl[12] = controllerYawrb[phase] * (-1) # yaw_back_right (GROUP 1)
+            data.ctrl[12] = controllerYaw1[phase] * (-1) # yaw_back_right (GROUP 1)
             data.ctrl[13] = controllerLift1[phase] # lift_back_right (GROUP 1)
-            data.ctrl[15] = controllerYawlb[phase] * (-1) # yaw_back_left (GROUP 0)
+            data.ctrl[15] = controllerYaw0[phase] * (-1) # yaw_back_left (GROUP 0)
             data.ctrl[16] = controllerLift0[phase] # lift_back_left (GROUP 0)
 
             # Simulation step
@@ -172,7 +172,7 @@ def init_and_run():
 
 def printDebug(phase, data):
         print('phase = ', phase)
-        print(data.joint('yaw_mid_right').qpos[0], ", ", data.joint('yaw_mid_left').qpos[0])
+        print(data.joint('yaw_front_left').qpos[0], ", ", data.joint('yaw_front_right').qpos[0])
 
 def save_setting():
     fileload = fd.asksaveasfile(mode = "w+")
