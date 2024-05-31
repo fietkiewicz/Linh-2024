@@ -23,4 +23,7 @@ I know this is a lot, but it will allow us to control the forces better. The GUI
 
 ### (b) Add a rolling ball!
 
-(in development)
+Add a ball that the robot can push like this:
+
+https://www.youtube.com/watch?v=RhRLjbb7pBE&list=PLzWiCM7Cn8WYCrvMYGszduvFhkw-RvjAl&t=40s&ab_channel=YuvalTassa
+
