@@ -1,4 +1,4 @@
-<mujoco model="quadruped">
+<mujoco model="Chris rangefinder demo">
 
   <include file="./common/skybox.xml"/>
   <include file="./common/visual.xml"/>
@@ -79,9 +79,8 @@
     <geom name="wall_py" class="wall" pos="0 -15.7 .7" zaxis="0 1 1"  size="15 1 .5"/>
     <geom name="wall_nx" class="wall" pos="15.7 0 .7" zaxis="-1 0 1"  size="1 15 .5"/>
     <geom name="wall_ny" class="wall" pos="0 15.7 .7" zaxis="0 -1 1"  size="15 1 .5"/>
-    <!-- <site name="target" type="cylinder" size=".4 .06" pos="0 0 .05" material="target"/> -->
 
-    <!-- <geom name="terrain" type="hfield" hfield="terrain" rgba=".2 .3 .4 1" pos="0 0 -.01"/> -->
+    <geom name="terrain" type="hfield" hfield="terrain" rgba=".2 .3 .4 1" pos="0 0 -.01"/>
 
     <camera name="global"  pos="-10 10 10" xyaxes="-1 -1 0 1 0 1" mode="trackcom"/>
     <body name="torso" childclass="body" pos="0 0 .57">
@@ -98,7 +97,10 @@
       <site name="pupil_l" type="sphere" size=".033"  pos=".3 .07 .08" zaxis="1 0 0" material="eye"/>
       <site name="workspace" type="sphere" size=".3 .3 .3"  material="site" pos=".8 0 -.2" group="3"/>
 
-      <geom name="torso" type="box" size=".3 .27 .05" density="1000"/>
+      <site name="rf_00" class="rangefinder" fromto=".41  .02  .115 .34 0 .115"/>
+      <site name="rf_01" class="rangefinder" fromto=".41 -.02  .115 .34 0 .115"/>
+
+      <geom name="torso" type="ellipsoid" size=".3 .27 .2" density="1000"/>
       <site name="torso_touch" type="box" size=".26 .26 .26" rgba="0 0 1 0"/>
       <site name="torso" size=".05" rgba="1 0 0 1" />
 
@@ -133,42 +135,6 @@
             <body name="toe_front_right" pos="0 0 -.3" childclass="toe">
               <geom name="toe_front_right"/>
               <site name="toe_front_right"/>
-            </body>
-          </body>
-        </body>
-      </body>
-
-      <body name="hip_mid_left" pos="0 .2 0" euler="0 0 90" childclass="hip">
-        <joint name="yaw_mid_left" class="yaw"/>
-        <joint name="pitch_mid_left" class="pitch"/>
-        <geom name="thigh_mid_left"/>
-        <body name="knee_mid_left" pos=".3 0 .11" childclass="knee">
-          <joint name="knee_mid_left"/>
-          <geom name="shin_mid_left"/>
-          <body name="ankle_mid_left" pos=".25 0 -.25" childclass="ankle">
-            <joint name="ankle_mid_left"/>
-            <geom name="foot_mid_left"/>
-            <body name="toe_mid_left" pos="0 0 -.3" childclass="toe">
-              <geom name="toe_mid_left"/>
-              <site name="toe_mid_left"/>
-            </body>
-          </body>
-        </body>
-      </body>
-
-      <body name="hip_mid_right" pos="0 -.2 0" euler="0 0 -90" childclass="hip">
-        <joint name="yaw_mid_right" class="yaw"/>
-        <joint name="pitch_mid_right" class="pitch"/>
-        <geom name="thigh_mid_right"/>
-        <body name="knee_mid_right" pos=".3 0 .11" childclass="knee">
-          <joint name="knee_mid_right"/>
-          <geom name="shin_mid_right"/>
-          <body name="ankle_mid_right" pos=".25 0 -.25" childclass="ankle">
-            <joint name="ankle_mid_right"/>
-            <geom name="foot_mid_right"/>
-            <body name="toe_mid_right" pos="0 0 -.3" childclass="toe">
-              <geom name="toe_mid_right"/>
-              <site name="toe_mid_right"/>
             </body>
           </body>
         </body>
@@ -211,9 +177,9 @@
       </body>
     </body>
 
-    <body name="ball" pos="0 0 3">
+    <body name="ball" pos="3 0 1">
       <freejoint name="ball_root"/>
-      <geom name="ball" size=".15" material="ball" priority="1" condim="6" friction=".7 .005 .005"
+      <geom name="ball" size="1" material="ball" priority="1" condim="6" friction=".7 .005 .005"
             solref="-10000 -30"/>
       <light name="ball_light" pos="0 0 4" mode="trackcom"/>
     </body>
@@ -231,18 +197,6 @@
       <joint joint="knee_front_right"       coef=".333"/>
       <joint joint="ankle_front_right"      coef=".333"/>
     </fixed>
-
-    <fixed name="coupling_mid_right">
-      <joint joint="pitch_mid_right"      coef=".333"/>
-      <joint joint="knee_mid_right"       coef=".333"/>
-      <joint joint="ankle_mid_right"      coef=".333"/>
-    </fixed>
-    <fixed name="coupling_mid_left">
-      <joint joint="pitch_mid_left"      coef=".333"/>
-      <joint joint="knee_mid_left"       coef=".333"/>
-      <joint joint="ankle_mid_left"      coef=".333"/>
-    </fixed>
-
     <fixed name="coupling_back_right">
       <joint joint="pitch_back_right"      coef=".333"/>
       <joint joint="knee_back_right"       coef=".333"/>
@@ -274,26 +228,6 @@
       <joint joint="ankle_front_right"     coef="-.5"/>
     </fixed>
 
-    <fixed name="extend_mid_left">
-      <joint joint="pitch_mid_left"      coef=".25"/>
-      <joint joint="knee_mid_left"       coef="-.5"/>
-      <joint joint="ankle_mid_left"      coef=".25"/>
-    </fixed>
-    <fixed name="lift_mid_left">
-      <joint joint="pitch_mid_left"      coef=".5"/>
-      <joint joint="ankle_mid_left"      coef="-.5"/>
-    </fixed>
-
-    <fixed name="extend_mid_right">
-      <joint joint="pitch_mid_right"     coef=".25"/>
-      <joint joint="knee_mid_right"      coef="-.5"/>
-      <joint joint="ankle_mid_right"     coef=".25"/>
-    </fixed>
-    <fixed name="lift_mid_right">
-      <joint joint="pitch_mid_right"     coef=".5"/>
-      <joint joint="ankle_mid_right"     coef="-.5"/>
-    </fixed>
-
     <fixed name="extend_back_right">
       <joint joint="pitch_back_right"     coef=".25"/>
       <joint joint="knee_back_right"      coef="-.5"/>
@@ -318,8 +252,6 @@
   <equality>
     <tendon name="coupling_front_left" tendon1="coupling_front_left" class="coupling"/>
     <tendon name="coupling_front_right" tendon1="coupling_front_right" class="coupling"/>
-    <tendon name="coupling_mid_left" tendon1="coupling_mid_left" class="coupling"/>
-    <tendon name="coupling_mid_right" tendon1="coupling_mid_right" class="coupling"/>
     <tendon name="coupling_back_right" tendon1="coupling_back_right" class="coupling"/>
     <tendon name="coupling_back_left" tendon1="coupling_back_left" class="coupling"/>
   </equality>
@@ -328,26 +260,21 @@
     <general name="yaw_front_left" class="yaw_act" joint="yaw_front_left"/>
     <general name="lift_front_left" class="lift_act" tendon="lift_front_left"/>
     <general name="extend_front_left" class="extend_act" tendon="extend_front_left"/>
-
     <general name="yaw_front_right" class="yaw_act" joint="yaw_front_right"/>
     <general name="lift_front_right" class="lift_act" tendon="lift_front_right"/>
     <general name="extend_front_right" class="extend_act" tendon="extend_front_right"/>
-
-    <general name="yaw_mid_left" class="yaw_act" joint="yaw_mid_left"/>
-    <general name="lift_mid_left" class="lift_act" tendon="lift_mid_left"/>
-    <general name="extend_mid_left" class="extend_act" tendon="extend_mid_left"/>
-
-    <general name="yaw_mid_right" class="yaw_act" joint="yaw_mid_right"/>
-    <general name="lift_mid_right" class="lift_act" tendon="lift_mid_right"/>
-    <general name="extend_mid_right" class="extend_act" tendon="extend_mid_right"/>
-
     <general name="yaw_back_right" class="yaw_act" joint="yaw_back_right"/>
     <general name="lift_back_right" class="lift_act" tendon="lift_back_right"/>
     <general name="extend_back_right" class="extend_act" tendon="extend_back_right"/>
-
     <general name="yaw_back_left" class="yaw_act" joint="yaw_back_left"/>
     <general name="lift_back_left" class="lift_act" tendon="lift_back_left"/>
     <general name="extend_back_left" class="extend_act" tendon="extend_back_left"/>
   </actuator>
 
+  <sensor>
+    <rangefinder name="rf_00" site="rf_00"/>
+    <rangefinder name="rf_01" site="rf_01"/>
+  </sensor>
+
 </mujoco>
+
