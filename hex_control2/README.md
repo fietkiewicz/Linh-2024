@@ -1,5 +1,11 @@
 # Hexapod Task #3
 
+Note: There are three programs.
+    • hex1.py: Different force for 6 differents yaw, using middle legs' yaws data to determine the phrase. 
+    • hex2.py: Different force for 6 differents yaw, using front legs' yaws data to determine the phrase. 
+    • hex_control2.py: User steers using arrow keys with new turn parameters. Has a ball to play with.
+
+
 Short version: 
 (a) Add separate horizontal (yaw) force parameters for all 6 legs.
 (b) Add a rolling ball!
