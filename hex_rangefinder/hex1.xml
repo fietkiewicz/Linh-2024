@@ -6,7 +6,7 @@
 
   <visual>
     <rgba rangefinder="1 1 0.1 0.1"/>
-    <map znear=".005" zfar="20"/>
+    <map znear=".001" zfar="20"/>
   </visual>
 
   <asset>
@@ -75,10 +75,10 @@
 
   <worldbody>
     <geom name="floor" type="plane" size="15 15 .5" material="grid"/>
-    <geom name="wall_px" class="wall" pos="-15.7 0 .7" zaxis="1 0 1"  size="1 15 .5"/>
-    <geom name="wall_py" class="wall" pos="0 -15.7 .7" zaxis="0 1 1"  size="15 1 .5"/>
-    <geom name="wall_nx" class="wall" pos="15.7 0 .7" zaxis="-1 0 1"  size="1 15 .5"/>
-    <geom name="wall_ny" class="wall" pos="0 15.7 .7" zaxis="0 -1 1"  size="15 1 .5"/>
+    <!-- <geom name="wall_px" class="wall" pos="-15.7 0 .7" zaxis="1 0 1"  size="2 2 2"/>
+    <geom name="wall_py" class="wall" pos="0 -15.7 .7" zaxis="0 1 1"  size="2 2 2"/>
+    <geom name="wall_nx" class="wall" pos="15.7 0 .7" zaxis="-1 0 1"  size="2 2 2"/>
+    <geom name="wall_ny" class="wall" pos="0 15.7 .7" zaxis="0 -1 1"  size="2 2 2"/> -->
     <!-- <site name="target" type="cylinder" size=".4 .06" pos="0 0 .05" material="target"/> -->
 
     <!-- <geom name="terrain" type="hfield" hfield="terrain" rgba=".2 .3 .4 1" pos="0 0 -.01"/> -->
@@ -98,7 +98,10 @@
       <site name="pupil_l" type="sphere" size=".033"  pos=".3 .07 .08" zaxis="1 0 0" material="eye"/>
       <site name="workspace" type="sphere" size=".3 .3 .3"  material="site" pos=".8 0 -.2" group="3"/>
 
-      <geom name="torso" type="box" size=".3 .27 .05" density="1000"/>
+      <site name="rf_00" class="rangefinder" fromto=".41  .02  .115 .34 0 .115"/>
+      <site name="rf_01" class="rangefinder" fromto=".41 -.02  .115 .34 0 .115"/>
+
+      <geom name="torso" type="ellipsoid" size=".3 .27 .2" density="1000"/>
       <site name="torso_touch" type="box" size=".26 .26 .26" rgba="0 0 1 0"/>
       <site name="torso" size=".05" rgba="1 0 0 1" />
 
@@ -211,10 +214,10 @@
       </body>
     </body>
 
-    <body name="ball" pos="2 2 3">
+    <body name="ball" pos="5 5 1">
       <freejoint name="ball_root"/>
-      <geom name="ball" size=".4" material="ball" priority="1" condim="6" friction=".7 .005 .005"
-            solref="-10000 -30"/>
+      <geom name="ball" size="1" material="ball" priority="1" condim="6" friction=".7 .7 .7"
+            solref="-10000 -30" mass="5"/>
       <light name="ball_light" pos="0 0 4" mode="trackcom"/>
     </body>
 
@@ -349,5 +352,10 @@
     <general name="lift_back_left" class="lift_act" tendon="lift_back_left"/>
     <general name="extend_back_left" class="extend_act" tendon="extend_back_left"/>
   </actuator>
+
+  <sensor>
+    <rangefinder name="rf_00" site="rf_00"/>
+    <rangefinder name="rf_01" site="rf_01"/>
+  </sensor>
 
 </mujoco>
