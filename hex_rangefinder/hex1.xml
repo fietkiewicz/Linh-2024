@@ -75,10 +75,10 @@
 
   <worldbody>
     <geom name="floor" type="plane" size="15 15 .5" material="grid"/>
-    <geom name="wall_px" class="wall" pos="-15.7 0 .7" zaxis="1 0 1"  size="10 15 5"/>
-    <geom name="wall_py" class="wall" pos="0 -15.7 .7" zaxis="0 1 1"  size="15 10 5"/>
-    <geom name="wall_nx" class="wall" pos="15.7 0 .7" zaxis="-1 0 1"  size="10 15 5"/>
-    <geom name="wall_ny" class="wall" pos="0 15.7 .7" zaxis="0 -1 1"  size="15 10 5"/>
+    <!-- <geom name="wall_px" class="wall" pos="-15.7 0 .7" zaxis="1 0 1"  size="2 2 2"/>
+    <geom name="wall_py" class="wall" pos="0 -15.7 .7" zaxis="0 1 1"  size="2 2 2"/>
+    <geom name="wall_nx" class="wall" pos="15.7 0 .7" zaxis="-1 0 1"  size="2 2 2"/>
+    <geom name="wall_ny" class="wall" pos="0 15.7 .7" zaxis="0 -1 1"  size="2 2 2"/> -->
     <!-- <site name="target" type="cylinder" size=".4 .06" pos="0 0 .05" material="target"/> -->
 
     <!-- <geom name="terrain" type="hfield" hfield="terrain" rgba=".2 .3 .4 1" pos="0 0 -.01"/> -->
@@ -216,8 +216,8 @@
 
     <body name="ball" pos="5 5 1">
       <freejoint name="ball_root"/>
-      <geom name="ball" size="1" material="ball" priority="1" condim="6" friction=".7 .005 .005"
-            solref="-10000 -30" mass="0.1"/>
+      <geom name="ball" size="1" material="ball" priority="1" condim="6" friction=".7 .7 .7"
+            solref="-10000 -30" mass="5"/>
       <light name="ball_light" pos="0 0 4" mode="trackcom"/>
     </body>
 

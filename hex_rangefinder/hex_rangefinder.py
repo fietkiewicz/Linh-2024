@@ -10,6 +10,7 @@ def init_and_run():
     filename = 'hex1.xml'
     model = mujoco.MjModel.from_xml_path(filename)
     data = mujoco.MjData(model)
+    last_sensor = "left"
 
     N = 100000
     i = 0
@@ -100,14 +101,33 @@ def init_and_run():
         data.ctrl[15] = controllerYawlb[viewer._movement][phase] * (-1) # yaw_back_left (GROUP 0)
         data.ctrl[16] = controllerLift0[phase] # lift_back_left (GROUP 0)
 
+        if data.sensordata[0] > 0 or data.sensordata[1] > 0:
+            if data.sensordata[0] > 1 or data.sensordata[1] > 1:
+                viewer._movement = "straight"
+            else:
+                if data.sensordata[0] - data.sensordata[1] > 0.1:
+                    viewer._movement = "right"
+                elif data.sensordata[1] - data.sensordata[0] > 0.1:
+                    viewer._movement = "left"
+                else:
+                    viewer._movement = "straight"
+        else:
+            viewer._movement = last_sensor
+
+        if data.sensordata[0] > 0:
+            last_sensor = "left"
+        elif data.sensordata[1] > 0:
+            last_sensor = "right"
+
         if i % int(speed.get()) == 0:
             viewer.render()
-            if data.sensordata[0] < 10 and data.sensordata[0] > 0 and data.sensordata[1] < 10 and data.sensordata[1] > 0:
-                viewer._movement = "straight"
-            elif data.sensordata[0] < 10 and data.sensordata[0] > 0:
-                viewer._movement = "left"
-            elif data.sensordata[1] < 10 and data.sensordata[1] > 0:
-                viewer._movement = "right"
+            
+            # if data.sensordata[0] < 10 and data.sensordata[0] > 0 and data.sensordata[1] < 10 and data.sensordata[1] > 0:
+            #     viewer._movement = "straight"
+            # elif data.sensordata[0] < 10 and data.sensordata[0] > 0:
+            #     viewer._movement = "left"
+            # elif data.sensordata[1] < 10 and data.sensordata[1] > 0:
+            #     viewer._movement = "right"
             # print(viewer._movement)
         i += 1
         mujoco.mj_step(model, data)
