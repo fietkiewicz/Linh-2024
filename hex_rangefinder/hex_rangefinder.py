@@ -5,6 +5,7 @@ import mujocoviewer2
 import tkinter as tk
 from tkinter import *
 from tkinter import filedialog as fd
+import mediapy as media
 
 def init_and_run():
     filename = 'hex1.xml'
@@ -12,11 +13,17 @@ def init_and_run():
     data = mujoco.MjData(model)
     last_sensor = "left"
 
-    N = 100000
+    if live.get() == True: N = 100000
+    else: N = int(step.get())
     i = 0
     phase = 0
+    frames = []
 
-    viewer = mujocoviewer2.MujocoViewer(model, data)
+    if live.get() == True:
+        viewer = mujocoviewer2.MujocoViewer(model, data)
+    else:
+        viewer = mujocoviewer2.MujocoViewer(model, data, 'offscreen')
+
     if tracking.get() == True:
         viewer.cam.fixedcamid = 0
         viewer.cam.type = mujoco.mjtCamera.mjCAMERA_TRACKING # following 
@@ -66,7 +73,11 @@ def init_and_run():
 
     for j in range(0, 100):
         if j % int(speed.get()) == 0:
-            viewer.render()
+            if live.get() == True:
+                viewer.render()  
+            else:
+                img = viewer.read_pixels()
+                frames.append(img) 
         mujoco.mj_step(model, data)
 
     while viewer.is_alive and i < N:
@@ -120,18 +131,18 @@ def init_and_run():
             last_sensor = "right"
 
         if i % int(speed.get()) == 0:
-            viewer.render()
-            
-            # if data.sensordata[0] < 10 and data.sensordata[0] > 0 and data.sensordata[1] < 10 and data.sensordata[1] > 0:
-            #     viewer._movement = "straight"
-            # elif data.sensordata[0] < 10 and data.sensordata[0] > 0:
-            #     viewer._movement = "left"
-            # elif data.sensordata[1] < 10 and data.sensordata[1] > 0:
-            #     viewer._movement = "right"
-            # print(viewer._movement)
+            if live.get() == True:
+                viewer.render()
+            else:
+                img = viewer.read_pixels()
+                frames.append(img)
         i += 1
         mujoco.mj_step(model, data)
     viewer.close()
+
+    if not live.get():
+        media.write_video(video_directory.get(), frames, fps=30)
+        print("Video finished!")
 
 def save_setting():
 
@@ -142,6 +153,9 @@ def save_setting():
     save.append(str(elevation.get()))
     save.append(str(distance.get()))
     save.append(str(trackbody.get()))
+    save.append(str(live.get()))
+    save.append(str(video_directory.get()))
+    save.append(str(step.get()))
     fileload.write('\n'.join(save))
     fileload.close()
 
@@ -161,6 +175,8 @@ def load_setting(filename = ""):
     elevation.delete(0, tk.END)
     distance.delete(0, tk.END)
     trackbody.delete(0, tk.END)
+    video_directory.delete(0, tk.END)
+    step.delete(0, tk.END)
 
     if save[0].strip() == "True":
         tracking.set(True)
@@ -172,9 +188,17 @@ def load_setting(filename = ""):
     distance.insert(0, int(save[3].strip()))
     trackbody.insert(0, int(save[4].strip()))
 
+    if save[5].strip() == "True":
+        live.set(True)
+    else:
+        live.set(False)
+
+    video_directory.insert(0, save[6].strip())
+    step.insert(0, int(save[7].strip()))
+
 window = tk.Tk()
 window.title("Hexapod Control")
-window.geometry("240x140")
+window.geometry("240x150")
 
 tracking = BooleanVar()
 camera_label = Label(window, text="Camera").grid(row=0, column=0, pady=2, sticky=W)
@@ -195,9 +219,17 @@ distance.grid(row=2, column=2, pady=2)
 trackbody = Entry(window, width=7)
 trackbody.grid(row=2, column=3, pady=2)
 
-init_btn = Button(window, text="Init and Run", command=init_and_run, width=28).grid(row=3, column=0, columnspan=4)
-save_btn = Button(window, text="Save", width=14, command=save_setting).grid(row=4, column=0, columnspan=2)
-load_btn = Button(window, text="Load", width=14, command=load_setting).grid(row=4, column=2, columnspan=2)
+live = BooleanVar()
+live_camera = Radiobutton(window, text="Live", variable=live, value=True).grid(row=3, column=0, sticky=W)
+video_camera = Radiobutton(window, text="Video", variable=live, value=False).grid(row=3, column=1, sticky=W)
+video_directory = Entry(window, width=10)
+video_directory.grid(row=3, column=2)
+step = Entry(window, width=7)
+step.grid(row=3, column=3)
+
+init_btn = Button(window, text="Init and Run", command=init_and_run, width=28).grid(row=4, column=0, columnspan=4)
+save_btn = Button(window, text="Save", width=14, command=save_setting).grid(row=5, column=0, columnspan=2)
+load_btn = Button(window, text="Load", width=14, command=load_setting).grid(row=5, column=2, columnspan=2)
 
 if (len(sys.argv) > 1):
     filename = sys.argv[1]
