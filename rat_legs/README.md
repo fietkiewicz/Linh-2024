@@ -10,7 +10,9 @@ Short version: (a) Discover how to move hip, knee, and ankle joints. (b) Make a 
 
 ## (a) Discover how to move hip, knee, and ankle joints
 
-Use the Mujoco app and the control sliders. See this picture. The knee and ankle only move in one direction. Note that Clayton designed it so that it doesn't fall over.
+Use the Mujoco app and the control sliders. The knee and ankle only move in one direction. Note that Clayton designed it so that it doesn't fall over. Here's a picture:
+
+https://github.com/fietkiewicz/Linh-2024/blob/main/rat_legs/example1.png
 
 ## (b) Make a screenshot video of the legs walking manually (no programming). 
 
