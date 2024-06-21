@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mujoco model="Rat Hindlimb Right">
+  <compiler angle="radian">
+    <lengthrange tolrange='0.1' />
+  </compiler>
+  <visual>
+      <scale framelength='0.3' framewidth='0.1' jointlength='0.1' jointwidth='0.01' contactwidth='0.1' contactheight='0.05'/>
+      <global offwidth="1280" offheight="920"/>
+   </visual>
+  <default>
+    <joint limited="true" damping="0.0001" stiffness="0.0001"></joint>
+    <geom rgba="0.8 0.6 .4 1"></geom>
+    <site size="0.001"></site>
+    <tendon width="0.0005" rgba=".95 .3 .3 1" limited="false"></tendon>
+    <default class="muscle">
+      <muscle ctrllimited="true" ctrlrange="0 1" ></muscle>
+    </default>
+  </default>
+  <worldbody>
+  <!-- <camera name='fixed' pos="-0.639 0.655 0.019" xyaxes="-0.998 0.056 -0.000 -0.004 -0.078 0.997"/> -->
+  <camera name='fixed' pos="-0.195 0.506 0.045" xyaxes="-1.000 0.020 0.000 -0.002 -0.121 0.993"/>
+  <!-- <camera  name='fixed' pos="-0.600 -0.092 0.019" xyaxes="-0.013 -1.000 -0.000 0.078 -0.001 0.997"/> -->
+
+
+    <geom name="floor" pos="0 0 -0.07" size="10 10 0.135" type="plane" material="MatPlane" rgba="1 1 1 1" condim="3" ></geom>
+    <body name="spine" pos="       0       -.1 6.12323e-17" quat="-0.122787803968973   0.122787803968973   0.696364240320019   0.696364240320019">
+    <body>
+      <geom type='sphere' size='0.01' pos='0.08 -0.01 0' mass='0.05' rgba='0 0 0 0'/>
+    </body>
+
+
+      <joint name='x_slide' type='slide' axis='0.939692620785908  -0.342020143325669                   0' limited='true' range='-10 10' stiffness='0.0' damping='0.05' />
+      <joint name='y_slide' type='slide' axis='0     0    1'                                              limited='true' range='-1 1' stiffness='.000' damping='0.001'/>
+      <joint name='z_slide' type='slide' axis='0.342020143325669   0.939692620785908                   0' limited='true' range='-0.014 -0.010'    stiffness='0.1' damping='0.1'/>    
+      <joint name='y_hinge' type='hinge' axis='0     0    1'                                              limited='true'  range='-0.1 0.15'  stiffness='0.0020' damping='0.002'/>
+      <joint name='z_hinge' type='hinge' axis='0.342020143325669   0.939692620785908                   0' limited='true' range='-0.1 0.1' stiffness='.001' damping='0.001'/> 
+      <joint name='x_hinge' type='hinge' axis='0.939692620785908  -0.342020143325669                   0' limited='true' range='-0.008 0.008' stiffness='.001' damping='0.001' />
+      
+      
+      <light mode="trackcom" directional="false" pos="0 0 4.0" dir="0 0 -1"></light>
+      <geom name="spine" type="mesh" mesh="spine"></geom>
+      <inertial pos="       0        0        0" mass="0.011824000000000005"></inertial>
+      <body name="L_pelvis" pos="   0.005   -0.003     -0.01" quat="0 0.0 1 0.0">
+        <geom name="L_pelvis" type="mesh" mesh="L_pelvis"  mass="0.01"></geom>
+        <!-- <inertial pos="       0        0        0" mass="0.02"></inertial> -->
+        <site name="L_Hip_Ext_Pelvis" pos="0.024199251041167  -0.000933954385910  -0.000003638250253"></site>
+        <site name="L_Hip_Flx_Pelvis" pos="-0.034278843371281   0.001936363298852  -0.002889053521072"></site>
+        <body name="L_femur" pos="       0        0        0.00" quat="0.965925826289068                   0                   0  -0.258819045102521">
+          <geom name="L_femur" type="mesh" mesh="L_femur"  mass="0.014140999794006348"></geom>
+          <!-- <inertial pos="       0   -0.015        0" mass="0.014140999794006348" ></inertial> -->
+          <site name="L_Hip_Ext_Femur" pos="0.000164061557790  -0.009744455046850   0.000155782949626"></site>
+          <site name="L_Hip_Flx_Femur" pos="0.000361799254514  -0.004927975980343   0.002877630717600"></site>
+          <site name="L_knee_ext_1" pos="-0.003014000000000  -0.010457988826816   0.001609000000000" />
+          <site name="L_knee_ext_2" pos="-0.005078000000000  -0.031154706703911  -0.001560000000000" />
+          <site name="L_knee_ext_3" pos="0.000452000000000  -0.035705572625698  -0.001315000000000" />
+          <site name="L_knee_flx_1" pos="-0.001583000000000  -0.011246829608939   0.004022000000000" />
+          <joint name="L_hip_flx" type="hinge" pos="0 0 0" axis="       0        0        1" limited="true" range="-0.7  0.12" stiffness='0.0001' damping='0.0001'></joint>
+          <body name="L_tibia" pos="       0.0435        -0.0330        0" quat="0.7071         0         0   0.7071">
+            <geom name="L_tibia" type="mesh" mesh="L_tibia"  mass="0.0033380000591278076"></geom>
+            <!-- <inertial pos="       0    0.015        0" mass="0.0033380000591278076" ></inertial> -->
+            <site name="L_knee_ext_4" pos=" 0.000219000000000   0.032908682709447  -0.000492000000000" />
+            <site name="L_knee_flx_2" pos="0.001729000000000   0.033332653297683   0.004386000000000" />
+            <site name="L_ankle_ext_1" pos="0.001634000000000   0.030064225490196   0.001724000000000" />
+            <site name="L_ankle_ext_2" pos="0.004207000000000   0.001378975044563   0.0003674000000000" />
+            <site name="L_ankle_flx_1" pos="-0.002965000000000   0.029150333333333   0.000077413000000" />
+            <joint name="L_knee_flx" type="hinge" pos="0.001 0.040 0" axis="       0        0        -1" limited="true" range="-0.7 0.0" ref="0" stiffness='0.00001' damping='0.00001'></joint>
+            <!-- <joint name="L_knee_flx" type="hinge" pos="0.001 0.040 0" axis="       0        0        -1" limited="true" range="-0.4  1.249066" ref="0"></joint> -->
+            <body name="L_foot" pos="       0        0        0" quat="1 0 0 0">
+              <geom name="L_foot" type="mesh" mesh="L_foot"  mass="0.0015709999799728394"></geom>
+              <!-- <inertial pos="   -0.007   -0.005        0" mass="0.0015709999799728394" ></inertial> -->
+              <site name="L_ankle_flx_2" pos="-0.008813000000000  -0.002939000000000   0.000994000000000" />
+              <site name="L_ankle_ext_3" pos="0.0054387000000000  -0.002167000000000  0.000173000000000" />
+              <joint name="L_ankle_flx" type="hinge" pos="0 0 0" axis="       0        0        1" limited="true" range="-1.1   -0.1" ref="0" stiffness='0.00003' damping='0.00001'></joint>
+            
+
+            <body name="L_toe_1" pos="0 0 0" quat="1 0 0 0">
+                <geom type='mesh' mesh='L_toe_1' mass='0.004' />
+                <joint name='L_toe_1' type='hinge' axis='-0.5 0 1' limited='true' range='-1 1.5' pos='-0.015175317547305  -0.001284421012925   0.005000000000000' stiffness='0.0009' damping='0.001'/>
+              </body>
+              <body name="L_toe_2" pos=" 0 0 0" quat="1 0 0 0">
+                <joint name='L_toe_2' type='hinge' axis='-0.4 0 1' limited='true' range='-1 1.5' pos='-0.019332239485471   0.001115578987075   0.004200000000000' stiffness='0.0009' damping='0.001'/>
+                <geom type='mesh' mesh='L_toe_2' mass='0.004'/>
+              </body>
+              <body name="L_toe_3" pos="       0        0        0" quat="1 0 0 0">
+                <geom type='mesh' mesh='L_toe_3' mass='0.004' />
+                <joint name='L_toe_3' type='hinge' axis='0. 0 1' limited='true' range='-1 1.5' pos='-0.019678649646985   0.001315578987075   0.001500000000000' stiffness='0.0009' damping='0.001' />
+              </body>
+              <body name="L_toe_4" pos="       0        0        0" quat="1 0 0 0">
+                <geom type='mesh' mesh='L_toe_4' mass='0.004'/>
+                <joint name='L_toe_4' type='hinge' axis='0.05 0 1' limited='true' range='-1 1.5' pos='-0.019068842025849   0.001771796769724  -0.001800000000000' stiffness='0.0009' damping='0.001'/>
+              </body>
+              <body name="L_toe_5" pos="       0        0        0" quat="1 0 0 0">
+                <geom type='mesh' mesh='L_toe_5' mass='0.004'/>
+                <joint name='L_toe_5' type='hinge' axis='0.3 0 1' limited='true' range='-1 1.5' pos='-0.014365509926170  -0.000481793068762  -0.003800000000000' stiffness='0.0009' damping='0.001'/>
+              </body>
+
+            </body>
+
+          </body>
+        </body>
+      </body>
+
+      <body name="R_pelvis" pos="   0.005   -0.003     0.01" quat="1.0 0.0 0.0 0.0">
+        <geom name="R_pelvis" type="mesh" mesh="R_pelvis" mass="0.01" ></geom>
+        <!-- <inertial pos="       0        0        0" mass="0.02"></inertial> -->
+		    <site name="R_Hip_Ext_Pelvis" pos="-0.024199251041167  -0.000933954385910  -0.000003638250253"></site>
+        <site name="R_Hip_Flx_Pelvis" pos="0.034278843371281   0.001936363298852  -0.002889053521072"></site>
+        <body name="R_femur" pos="       0        0        0.00" quat="0.965925826289068                   0                   0  0.258819045102521">
+          <geom name="R_femur" type="mesh" mesh="R_femur" mass="0.014140999794006348" ></geom>
+          <!-- <inertial pos="       0   -0.015        0" mass="0.014140999794006348" ></inertial>       -->
+		      <site name="R_Hip_Ext_Femur" pos="-0.000164061557790  -0.009744455046850   0.000155782949626"></site>
+          <site name="R_Hip_Flx_Femur" pos="-0.000361799254514  -0.004927975980343   0.002877630717600"></site>
+          <site name="R_knee_ext_1" pos="0.003014000000000  -0.010457988826816   0.001609000000000" />
+          <site name="R_knee_ext_2" pos="0.005078000000000  -0.031154706703911  -0.001560000000000" />
+          <site name="R_knee_ext_3" pos="-0.000452000000000  -0.035705572625698  -0.001315000000000" />
+          <site name="R_knee_flx_1" pos="0.001583000000000  -0.011246829608939   0.004022000000000" />
+          <joint name="R_hip_flx" type="hinge" pos="0 0 0" axis="       0        0        -1" limited="true" range="-0.7  0.12" stiffness='0.0001' damping='0.0001' ></joint>
+          <body name="R_tibia" pos="       -0.0435        -0.0330        0" quat="0.7071         0         0   -0.7071">
+            <geom name="R_tibia" type="mesh" mesh="R_tibia" mass="0.0033380000591278076" ></geom>
+            <!-- <inertial pos="       0    0.015        0" mass="0.0033380000591278076" ></inertial> -->
+            <site name="R_knee_ext_4" pos=" -0.000219000000000   0.032908682709447  -0.000492000000000" />
+            <site name="R_knee_flx_2" pos="-0.001729000000000   0.033332653297683   0.004386000000000" />
+            <site name="R_ankle_ext_1" pos="-0.001634000000000   0.030064225490196   0.001724000000000" />
+            <site name="R_ankle_ext_2" pos="-0.004207000000000   0.001378975044563   0.0003674000000000" />
+            <site name="R_ankle_flx_1" pos="0.002965000000000   0.029150333333333   0.000077413000000" />
+            <joint name="R_knee_flx" type="hinge" pos="-0.001 0.040 0" axis="       0        0        1" limited="true" range="-0.7 0.0" ref="0" stiffness='0.00001' damping='0.00001'></joint>
+            <!-- <joint name="R_knee_flx" type="hinge" pos="-0.001 0.040 0" axis="       0        0        1" limited="true" range="-0.4 1.249066" ref="0"></joint> -->
+            <body name="R_foot" pos="       0        0        0" quat="1 0 0 0">
+              <geom name="R_foot" type="mesh" mesh="R_foot"  mass="0.0015709999799728394"></geom>
+              <!-- <inertial pos="   0.007   -0.005        0" mass="0.0015709999799728394" ></inertial> -->
+              <site name="R_ankle_flx_2" pos="0.008813000000000  -0.002939000000000   0.000994000000000" />
+              <site name="R_ankle_ext_3" pos="-0.0054387000000000  -0.002167000000000  -0.000173000000000" />
+              <joint name="R_ankle_flx" type="hinge" pos="0 0 0" axis="       0        0        -1" limited="true" range="-1.1   -0.1" ref="0" stiffness='0.00003' damping='0.00001'></joint>
+              <!-- <joint name="R_ankle_flx" type="hinge" pos="0 0 0" axis="       0        0        -1" limited="true" range="-0.423599   0.323599" ref="0"></joint> -->
+          
+
+              <body name="R_toe_1" pos="0 0 0" quat="1 0 0 0">
+                <geom type='mesh' mesh='R_toe_1' mass='0.004'/>
+                <joint name='R_toe_1' type='hinge' axis='-0.5 0 1' limited='true' range='-1 1.5' pos='0.015175317547305  -0.001284421012925   0.005000000000000' stiffness='0.0009' damping='0.001'/>
+              </body>
+              <body name="R_toe_2" pos=" 0 0 0" quat="1 0 0 0">
+                <joint name='R_toe_2' type='hinge' axis='-0.4 0 1' limited='true' range='-1 1.5' pos='0.019332239485471   0.001115578987075   0.004200000000000' stiffness='0.0009' damping='0.001'/>
+                <geom type='mesh' mesh='R_toe_2' mass='0.004' />
+              </body>
+              <body name="R_toe_3" pos="       0        0        0" quat="1 0 0 0">
+                <geom type='mesh' mesh='R_toe_3' mass='0.004'/>
+                <joint name='R_toe_3' type='hinge' axis='0. 0 1' limited='true' range='-1 1.5' pos='0.019678649646985   0.001315578987075   0.001500000000000' stiffness='0.0009' damping='0.001' />
+                <!-- <site pos='0.0288678649646985   0.002415578987075   0.00340000000000' name='R_touch'  rgba='1 0 0 0.2' size='0.003'/> -->
+              </body>
+              <body name="R_toe_4" pos="       0        0        0" quat="1 0 0 0">
+                <geom type='mesh' mesh='R_toe_4' mass='0.004'/>
+                <joint name='R_toe_4' type='hinge' axis='0.05 0 1' limited='true' range='-1 1.5' pos='0.019068842025849   0.001771796769724  -0.001800000000000' stiffness='0.0009' damping='0.001'/>
+              </body>
+              <body name="R_toe_5" pos="       0        0        0" quat="1 0 0 0">
+                <geom type='mesh' mesh='R_toe_5' mass='0.004'/>
+                <joint name='R_toe_5' type='hinge' axis='0.3 0 1' limited='true' range='-1 1.5' pos='0.014365509926170  -0.000481793068762  -0.003800000000000' stiffness='0.0009' damping='0.001'/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+
+  </worldbody>
+  <asset>
+    <mesh name="spine" file="rat_Geometry/spine.stl" scale="       1        1        1"></mesh>
+    <mesh name="R_pelvis" file="rat_Geometry/pelvis.stl" scale="       1        1        1"></mesh>
+    <mesh name="L_pelvis" file="rat_Geometry/pelvis.stl" scale="       -1        1        1"></mesh>
+    <mesh name="R_femur" file="rat_Geometry/femur.stl" scale="       1        1        1"></mesh>
+    <mesh name="L_femur" file="rat_Geometry/femur.stl" scale="       -1        1        1"></mesh>
+    <mesh name="R_tibia" file="rat_Geometry/tibia.stl" scale="       1        1        1"></mesh>
+    <mesh name="L_tibia" file="rat_Geometry/tibia.stl" scale="       -1        1        1"></mesh>
+    <mesh name="R_foot" file="rat_Geometry/foot0.stl" scale="       1        1        1"></mesh>
+
+    <mesh name='R_toe_1' file='rat_Geometry/toe_1.stl' scale=' 1 1 1' > </mesh>
+    <mesh name='R_toe_2' file='rat_Geometry/toe_2.stl' scale=' 1 1 1' > </mesh>
+    <mesh name='R_toe_3' file='rat_Geometry/toe_3.stl' scale=' 1 1 1' > </mesh>
+    <mesh name='R_toe_4' file='rat_Geometry/toe_4.stl' scale=' 1 1 1' > </mesh>
+    <mesh name='R_toe_5' file='rat_Geometry/toe_5.stl' scale=' 1 1 1' > </mesh>
+
+    <mesh name="L_foot" file="rat_Geometry/foot0.stl" scale="       -1        1        1"></mesh>
+
+    <mesh name='L_toe_1' file='rat_Geometry/toe_1.stl' scale=' -1 1 1' > </mesh>
+    <mesh name='L_toe_2' file='rat_Geometry/toe_2.stl' scale=' -1 1 1' > </mesh>
+    <mesh name='L_toe_3' file='rat_Geometry/toe_3.stl' scale=' -1 1 1' > </mesh>
+    <mesh name='L_toe_4' file='rat_Geometry/toe_4.stl' scale=' -1 1 1' > </mesh>
+    <mesh name='L_toe_5' file='rat_Geometry/toe_5.stl' scale=' -1 1 1' > </mesh>
+
+
+    <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" width="100" height="100"></texture>
+    <material name="MatPlane" reflectance="0.0" texture="texplane" texrepeat="15 15" texuniform="true"></material>
+    <texture type="skybox" builtin="gradient" rgb1="1 1 1" rgb2="1 1 1" width="256" height="256" />
+  </asset>
+  <tendon>
+    <spatial name="R_hip_ext_tendon">
+      <site site="R_Hip_Ext_Pelvis"></site>
+      <site site="R_Hip_Ext_Femur"></site>
+    </spatial>
+    <spatial name="L_hip_ext_tendon">
+      <site site="L_Hip_Ext_Pelvis"></site>
+      <site site="L_Hip_Ext_Femur"></site>
+    </spatial>
+
+    <spatial name="R_hip_flx_tendon">
+      <site site="R_Hip_Flx_Pelvis"></site>
+      <site site="R_Hip_Flx_Femur"></site>
+    </spatial>
+    <spatial name="L_hip_flx_tendon">
+      <site site="L_Hip_Flx_Pelvis"></site>
+      <site site="L_Hip_Flx_Femur"></site>
+    </spatial>
+
+    <spatial name="R_knee_ext_tendon">
+         <site site="R_knee_ext_1" />
+         <site site="R_knee_ext_2" />
+         <site site="R_knee_ext_3" />
+         <site site="R_knee_ext_4" />
+      </spatial>
+      <spatial name="L_knee_ext_tendon">
+         <site site="L_knee_ext_1" />
+         <site site="L_knee_ext_2" />
+         <site site="L_knee_ext_3" />
+         <site site="L_knee_ext_4" />
+      </spatial>
+
+
+      <spatial name='R_knee_flx_tendon' damping='0' >
+        <site site='R_knee_flx_1' />
+        <site site='R_knee_flx_2' />
+      </spatial>
+      <spatial name='L_knee_flx_tendon' damping='0' >
+        <site site='L_knee_flx_1' />
+        <site site='L_knee_flx_2' />
+      </spatial>
+
+      <spatial name='R_ankle_flx_tendon' >
+        <site site='R_ankle_flx_1' />
+        <site site='R_ankle_flx_2' />
+      </spatial>
+      <spatial name='L_ankle_flx_tendon' >
+        <site site='L_ankle_flx_1' />
+        <site site='L_ankle_flx_2' />
+      </spatial>
+
+      <spatial name='R_ankle_ext_tendon' >
+        <site site='R_ankle_ext_1' />
+        <site site='R_ankle_ext_2' />
+        <site site='R_ankle_ext_3' />
+      </spatial>
+      <spatial name='L_ankle_ext_tendon' >
+        <site site='L_ankle_ext_1' />
+        <site site='L_ankle_ext_2' />
+        <site site='L_ankle_ext_3' />
+      </spatial>
+  </tendon>
+  <actuator>
+    <muscle name="R_hip_ext" tendon="R_hip_ext_tendon" class="muscle"  force='5.35'/>   <!--21.4-->
+    <muscle name="R_hip_flx" tendon="R_hip_flx_tendon" class="muscle" force='15.45'/>    <!--11.45-->
+    <muscle name="R_knee_ext" tendon="R_knee_ext_tendon" class="muscle" force='10.025'/>
+    <muscle name="R_knee_flx" tendon="R_knee_flx_tendon" class="muscle" force='8.1167'/>
+    <muscle name="R_ankle_ext" tendon="R_ankle_ext_tendon" class="muscle" force='5.4'/>
+    <muscle name="R_ankle_flx" tendon="R_ankle_flx_tendon" class="muscle" force='4.075'/>
+
+    <muscle name="L_hip_ext" tendon="L_hip_ext_tendon" class="muscle"  force='5.35'/>  <!--21.4-->
+    <muscle name="L_hip_flx" tendon="L_hip_flx_tendon" class="muscle" force='15.45'/> 
+    <muscle name="L_knee_ext" tendon="L_knee_ext_tendon" class="muscle" force='10.025'/>
+    <muscle name="L_knee_flx" tendon="L_knee_flx_tendon" class="muscle" force='8.1167'/>
+    <muscle name="L_ankle_ext" tendon="L_ankle_ext_tendon" class="muscle" force='5.4'/>
+    <muscle name="L_ankle_flx" tendon="L_ankle_flx_tendon" class="muscle" force='4.075'/>
+
+
+  </actuator>
+  <contact> 
+    <exclude body1="R_pelvis" body2="R_femur" />
+    <exclude body1="L_pelvis" body2="L_femur" />
+    <!-- <exclude body1='R_foot' body2='R_R_toe_1' />
+    <exclude body1='R_foot' body2='R_R_toe_2' />
+    <exclude body1='R_foot' body2='R_R_toe_3' />
+    <exclude body1='R_foot' body2='R_R_toe_4' />
+    <exclude body1='R_foot' body2='R_R_toe_5' /> -->
+  </contact>
+  <equality>
+
+  </equality>
+  <sensor>
+    <!-- <touch name='R_touch' site='R_touch'/> -->
+  </sensor>
+  <keyframe>
+  </keyframe>
+</mujoco>
