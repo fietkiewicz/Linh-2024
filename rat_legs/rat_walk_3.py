@@ -8,7 +8,7 @@ from tkinter import filedialog as fd
 import glfw
 
 def init_and_run():
-    filename = 'rat_hindlimbs_on_ground.xml'
+    filename = 'rat_hindlimb_both_legs.xml'
     model = mujoco.MjModel.from_xml_path(filename)
     data = mujoco.MjData(model)
 
