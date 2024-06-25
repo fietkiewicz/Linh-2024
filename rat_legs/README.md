@@ -1,5 +1,16 @@
 # Rat Legs Task #1
 
+Files...
+
+rat_hindlimb_both_legs.xml: Original model from Clayton Jackson.
+rat_hindlimbs_on_ground.xml: Newer model from Clayton Jackson.
+rat_walk.py: First experiment using rat_hindlimb_both_legs.xml.
+rat_walk_2.py: Second experiment using rat_hindlimb_both_legs.xml.
+rat_walk_3.py: Walks backwards! (Succssful failure!) Uses rat_hindlimbs_on_ground.xml.
+rat_walk_4.py: Walks forwards. Uses rat_hindlimbs_on_ground.xml.
+
+## Background and original instructions
+
 Clayton Jackson, the PhD student from Case Western Reserve University, made a 2-leg version of the rat legs that walks! His main github location is here (but you DON'T need to go there):
 
 https://github.com/cxj271/Two_layer_CPG_SNS_Toolbox
