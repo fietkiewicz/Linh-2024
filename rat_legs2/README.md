@@ -19,3 +19,5 @@ Research how to control friction on the floor. We do NOT need a controller. If w
 ## (c) Make a "walk" controller that lets the user change the friction settings.
 
 If part (a) worked, then make a controller that includes a setting (in the GUI) for the foot friction. If part (b) worked, add a setting for the floor friction. I want to be able to experiment with different friction settings to see how it affects the walking.
+
+Please include the video recording option by the end.
