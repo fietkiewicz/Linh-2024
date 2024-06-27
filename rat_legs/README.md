@@ -6,8 +6,9 @@ rat_hindlimb_both_legs.xml: Original model from Clayton Jackson.
 rat_hindlimbs_on_ground.xml: Newer model from Clayton Jackson.
 rat_walk.py: First experiment using rat_hindlimb_both_legs.xml.
 rat_walk_2.py: Second experiment using rat_hindlimb_both_legs.xml.
-rat_walk_3.py: Walks backwards! (Succssful failure!) Uses rat_hindlimbs_on_ground.xml.
-rat_walk_4.py: Walks forwards. Uses rat_hindlimbs_on_ground.xml.
+rat_walk_3.py: Walks backward! (Succssful failure!) Uses rat_hindlimbs_on_ground.xml.
+rat_walk_4.py: Walks forward. Uses rat_hindlimbs_on_ground.xml.
+test.py: Walks forward. New: Video recording feature captures live video with user camera changes.
 
 ## Background and original instructions
 
