@@ -1,12 +1,24 @@
 # Rat Legs Task #2
 
+The instructions were updated with a "(tutorial)" step.
+
 The goal is to research how to use friction in Mujoco. 
 
-Short version: (a) Can we use friction in the foot to prevent slipping in Clayton's model? (b) How can we change friction in the floor? (c) Make a "walk" controller that lets the user change the friction settings.
+Short version: (tutorial) Create an example from the tutorial. (a) Can we use friction in the foot to prevent slipping in Clayton's model? (b) How can we change friction in the floor? (c) Make a "walk" controller that lets the user change the friction settings.
 
 Note that (a) and (b) do NOT need a controller. We'll test the friction using the default Mujoco viewer.
 
 ## Long version:
+
+## (tutorial) Create an example from the tutorial. 
+
+Run this tutorial example that has two cubes:
+https://colab.research.google.com/github/deepmind/mujoco/blob/main/python/tutorial.ipynb#scrollTo=zV5PkYzFXu42
+
+The goal for this part is to let the user change friction settings and see the results very fast. So make a GUI like you have in "rat_legs". It should have the following features:
+1. Runs a simulation with the demo from the tutorial (two cubes).
+2. Has an Entry for "ground" friction. Default is .1.
+3. Has an Entry for the 2nd cube's friction. Default is .33.
 
 ## (a) Can we use friction in the foot to prevent slipping in Clayton's model? 
 
