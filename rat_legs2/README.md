@@ -1,5 +1,13 @@
 # Rat Legs Task #2
 
+## Files
+
+1. rat_hindlimbs_on_ground.xml: Newer model from Clayton Jackson.
+2. rat_walk.py: ???
+3. rat_walk_friction.py: ???
+
+## Introduction
+
 The instructions were updated with a "(tutorial)" step.
 
 The goal is to research how to use friction in Mujoco. 
