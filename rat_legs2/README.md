@@ -2,9 +2,10 @@
 
 ## Files
 
-1. rat_hindlimbs_on_ground.xml: Chris' version of rat legs is much more detailed compared to Clayson's version
-2. rat_walk.py: Old rat_walk.py in rat_legs, use the rat_hindlimb_both_legs.xml with negative friction to show better slippery state of the model
-3. rat_walk_friction.py: Adapt from rat_walk_4.py in rat_legs, use the rat_hindlimbs_on_ground.xml with positive friction to show the model's stiffness.
+1. rat_hindlimbs_on_ground.xml: Chris' version of rat legs is much more detailed compared to Clayson's version, with the sliding friction value of 2
+2. rat_hindlimb_both_legs.xml: Clayson's version of rat legs, with the sliding friction value of -10. Note: There is not much differences when changing the friction from -10 to -1. It's still slippery. 
+3. rat_walk.py: Old rat_walk.py in rat_legs, use the rat_hindlimb_both_legs.xml with negative friction to show better slippery state of the model
+4. rat_walk_friction.py: Adapt from rat_walk_4.py in rat_legs, use the rat_hindlimbs_on_ground.xml with positive friction to show the model's stiffness.
 
 ## Introduction
 
