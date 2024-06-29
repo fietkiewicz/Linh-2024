@@ -2,7 +2,7 @@
 
 ## Files
 
-1. rat_hindlimbs_on_ground.xml: Newer model from Clayton Jackson.
+1. rat_hindlimbs_on_ground.xml: ??? 
 2. rat_walk.py: ???
 3. rat_walk_friction.py: ???
 
