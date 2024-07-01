@@ -74,23 +74,23 @@
             
 
             <body name="L_toe_1" pos="0 0 0" quat="1 0 0 0">
-                <geom type='mesh' mesh='L_toe_1' mass='0.004' friction="2 0.005 0.0001"/>
+                <geom name="L_toe_mesh_1" type='mesh' mesh='L_toe_1' mass='0.004' friction="2 0.005 0.0001"/>
                 <joint name='L_toe_1' type='hinge' axis='-0.5 0 1' limited='true' range='-1 1.5' pos='-0.015175317547305  -0.001284421012925   0.005000000000000' stiffness='0.0009' damping='0.001'/>
               </body>
               <body name="L_toe_2" pos=" 0 0 0" quat="1 0 0 0">
                 <joint name='L_toe_2' type='hinge' axis='-0.4 0 1' limited='true' range='-1 1.5' pos='-0.019332239485471   0.001115578987075   0.004200000000000' stiffness='0.0009' damping='0.001'/>
-                <geom type='mesh' mesh='L_toe_2' mass='0.004' friction="2 0.005 0.0001"/>
+                <geom name="L_toe_mesh_2" type='mesh' mesh='L_toe_2' mass='0.004' friction="2 0.005 0.0001"/>
               </body>
               <body name="L_toe_3" pos="       0        0        0" quat="1 0 0 0">
-                <geom type='mesh' mesh='L_toe_3' mass='0.004' friction="2 0.005 0.0001"/>
+                <geom name="L_toe_mesh_3" type='mesh' mesh='L_toe_3' mass='0.004' friction="2 0.005 0.0001"/>
                 <joint name='L_toe_3' type='hinge' axis='0. 0 1' limited='true' range='-1 1.5' pos='-0.019678649646985   0.001315578987075   0.001500000000000' stiffness='0.0009' damping='0.001' />
               </body>
               <body name="L_toe_4" pos="       0        0        0" quat="1 0 0 0">
-                <geom type='mesh' mesh='L_toe_4' mass='0.004' friction="2 0.005 0.0001"/>
+                <geom name="L_toe_mesh_4" type='mesh' mesh='L_toe_4' mass='0.004' friction="2 0.005 0.0001"/>
                 <joint name='L_toe_4' type='hinge' axis='0.05 0 1' limited='true' range='-1 1.5' pos='-0.019068842025849   0.001771796769724  -0.001800000000000' stiffness='0.0009' damping='0.001'/>
               </body>
               <body name="L_toe_5" pos="       0        0        0" quat="1 0 0 0">
-                <geom type='mesh' mesh='L_toe_5' mass='0.004' friction="2 0.005 0.0001"/>
+                <geom name="L_toe_mesh_5" type='mesh' mesh='L_toe_5' mass='0.004' friction="2 0.005 0.0001"/>
                 <joint name='L_toe_5' type='hinge' axis='0.3 0 1' limited='true' range='-1 1.5' pos='-0.014365509926170  -0.000481793068762  -0.003800000000000' stiffness='0.0009' damping='0.001'/>
               </body>
 
@@ -135,24 +135,24 @@
           
 
               <body name="R_toe_1" pos="0 0 0" quat="1 0 0 0">
-                <geom type='mesh' mesh='R_toe_1' mass='0.004' friction="2 0.005 0.0001"/>
+                <geom name="R_toe_mesh_1" type='mesh' mesh='R_toe_1' mass='0.004' friction="2 0.005 0.0001"/>
                 <joint name='R_toe_1' type='hinge' axis='-0.5 0 1' limited='true' range='-1 1.5' pos='0.015175317547305  -0.001284421012925   0.005000000000000' stiffness='0.0009' damping='0.001'/>
               </body>
               <body name="R_toe_2" pos=" 0 0 0" quat="1 0 0 0">
                 <joint name='R_toe_2' type='hinge' axis='-0.4 0 1' limited='true' range='-1 1.5' pos='0.019332239485471   0.001115578987075   0.004200000000000' stiffness='0.0009' damping='0.001'/>
-                <geom type='mesh' mesh='R_toe_2' mass='0.004' friction="2 0.005 0.0001"/>
+                <geom name="R_toe_mesh_2" type='mesh' mesh='R_toe_2' mass='0.004' friction="2 0.005 0.0001"/>
               </body>
               <body name="R_toe_3" pos="       0        0        0" quat="1 0 0 0">
-                <geom type='mesh' mesh='R_toe_3' mass='0.004' friction="2 0.005 0.0001"/>
+                <geom name="R_toe_mesh_3" type='mesh' mesh='R_toe_3' mass='0.004' friction="2 0.005 0.0001"/>
                 <joint name='R_toe_3' type='hinge' axis='0. 0 1' limited='true' range='-1 1.5' pos='0.019678649646985   0.001315578987075   0.001500000000000' stiffness='0.0009' damping='0.001' />
                 <!-- <site pos='0.0288678649646985   0.002415578987075   0.00340000000000' name='R_touch'  rgba='1 0 0 0.2' size='0.003'/> -->
               </body>
               <body name="R_toe_4" pos="       0        0        0" quat="1 0 0 0">
-                <geom type='mesh' mesh='R_toe_4' mass='0.004' friction="2 0.005 0.0001"/>
+                <geom name="R_toe_mesh_4" type='mesh' mesh='R_toe_4' mass='0.004' friction="2 0.005 0.0001"/>
                 <joint name='R_toe_4' type='hinge' axis='0.05 0 1' limited='true' range='-1 1.5' pos='0.019068842025849   0.001771796769724  -0.001800000000000' stiffness='0.0009' damping='0.001'/>
               </body>
               <body name="R_toe_5" pos="       0        0        0" quat="1 0 0 0">
-                <geom type='mesh' mesh='R_toe_5' mass='0.004' friction="2 0.005 0.0001"/>
+                <geom name="R_toe_mesh_5" type='mesh' mesh='R_toe_5' mass='0.004' friction="2 0.005 0.0001"/>
                 <joint name='R_toe_5' type='hinge' axis='0.3 0 1' limited='true' range='-1 1.5' pos='0.014365509926170  -0.000481793068762  -0.003800000000000' stiffness='0.0009' damping='0.001'/>
               </body>
             </body>
