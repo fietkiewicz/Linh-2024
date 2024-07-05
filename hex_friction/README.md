@@ -2,7 +2,7 @@
 
 The goal is to add friction and mass to the hexapod and study how it affects walking. The hexapod walks, but
 
-Short version: (a) Use the blocks friction demo to study mass. (b) Find a good online XML editor so we can test settings in the Mujoco app. (c) Add friction and mass to hexapod.
+Short version: (a) Use the blocks friction demo to study mass. (b) Find a good online XML editor so we can test settings in the Mujoco app. (c) Add friction and mass to hexapod. (d) Analyze effects of changing mass, floor friction, and feet friction.
 
 ## Long version:
 
@@ -23,3 +23,9 @@ Add the following to the hexapod XML and the GUI control panel:
 1. mass for the hexapod "torso"
 2. friction for the floor
 3. friction for all of the feet
+
+## (d) Analyze effects of changing mass, floor friction, and foot friction.
+
+What happens when you increase mass friction in the hexapod?
+What happens when you increase floor friction?
+What happens when you increase foot friction?
