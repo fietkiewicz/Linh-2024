@@ -16,4 +16,10 @@ The Mujoco app is great for experimenting with the model by manually changing th
 
 ## (c) Add friction and mass to hexapod.
 
-(Instructions are coming!)
+In this part, I want the GUI with manual control (left/right/straight) and the live/video/camera options. We'll experiment with friction and mass settings to see how they affect walking.
+
+Add the following to the hexapod XML and the GUI control panel:
+
+1. mass for the hexapod "torso"
+2. friction for the floor
+3. friction for all of the feet
