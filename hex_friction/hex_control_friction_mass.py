@@ -5,71 +5,31 @@ import mujocoviewer2
 import tkinter as tk
 from tkinter import *
 from tkinter import filedialog as fd
-import mediapy as media
+import glfw
 import xml.etree.ElementTree as ET
 
-MJCF = """
-<mujoco>
-  <asset>
-    <texture name="grid" type="2d" builtin="checker" rgb1=".1 .2 .3"
-     rgb2=".2 .3 .4" width="300" height="300" mark="none"/>
-    <material name="grid" texture="grid" texrepeat="6 6"
-     texuniform="true" reflectance=".2"/>
-     <material name="wall" rgba='.5 .5 .5 1'/>
-  </asset>
-
-  <default>
-    <geom type="box" size=".05 .05 .05" />
-    <joint type="free"/>
-  </default>
-
-  <worldbody>
-    <light name="light" pos="-.2 0 1"/>
-    <geom name="ground" type="plane" size=".5 .5 10" material="grid"
-     zaxis="-.3 0 1" friction=".1"/>
-    <camera name="y" pos="-.1 -.6 .3" xyaxes="1 0 0 0 1 2"/>
-    <body pos="0 0 .1">
-      <joint/>
-      <geom/>
-    </body>
-    <body pos="0 .2 .1">
-      <joint/>
-      <geom name="cube" friction=".33"/>
-    </body>
-  </worldbody>
-
-</mujoco>
-"""
 def init_and_run():
-
-    doc = ET.fromstring(MJCF)
-    tree = ET.ElementTree(doc)
+    filename = 'hex1.xml'
+    tree = ET.parse(filename)
 
     for geom in tree.iter('geom'):
-        if geom.get('name') == "cube":
-            if friction.get():
-                geom.set("friction", friction.get())
-            if mass.get():
-                geom.set("mass", mass.get())
-        if geom.get('name') == "ground":
-            if friction2.get():
-                geom.set("friction", friction2.get())
-    
+        if friction.get() and geom.get('name') in ["toe_front_left", "toe_front_right", "toe_mid_left", "toe_mid_right", "toe_back_left", "toe_back_right"]:
+            geom.set("friction", friction.get())
+        if friction2.get() and geom.get('name') == "floor":
+            geom.set("friction", friction2.get())
+        if mass.get() and geom.get('name') == "torso":
+            geom.set("mass", mass.get())
+
     tree.write('output.xml', encoding="utf-8")
 
     model = mujoco.MjModel.from_xml_path('output.xml')
     data = mujoco.MjData(model)
 
-    if live.get() == True: N = 100000
-    else: N = int(step.get())
+    N = 100000
     i = 0
-    frames = []
+    phase = 0
 
-    if live.get() == True:
-        viewer = mujocoviewer2.MujocoViewer(model, data)
-    else:
-        viewer = mujocoviewer2.MujocoViewer(model, data, 'offscreen')
-
+    viewer = mujocoviewer2.MujocoViewer(model, data)
     if tracking.get() == True:
         viewer.cam.fixedcamid = 0
         viewer.cam.type = mujoco.mjtCamera.mjCAMERA_TRACKING # following 
@@ -77,21 +37,89 @@ def init_and_run():
     viewer.cam.distance = float(distance.get())
     viewer.cam.elevation = int(elevation.get())
 
+    controllerYawlf = {
+        "left" : [0, 0, 0, 0, 0, 0, 0, 0],
+        "right": [0, 1, 0, -1, 0, 0, 0, 0],
+        "straight": [0, 1, 0, -1, 0, 0, 0, 0]
+    }
+    controllerYawlb = {
+        "left" : [0, 0, 0, 0, 0, 0, 0, 0],
+        "right": [0, 1, 0, -1, 0, 0, 0, 0],
+        "straight": [0, 1, 0, -1, 0, 0, 0, 0]
+    }
+    controllerYawrm = {
+        "left" : [0, 1, 0, -1, 0, 0, 0, 0],
+        "right": [0, 0, 0, 0, 0, 0, 0, 0],
+        "straight": [0, 1, 0, -1, 0, 0, 0, 0]
+    }
+    controllerYawrf = {
+        "left" : [0, 0, 0, 0, 0, -1, 0, 1],
+        "right": [0, 0, 0, 0, 0, 0, 0, 0],
+        "straight": [0, 0, 0, 0, 0, -1, 0, 1]
+    }
+    controllerYawrb = {
+        "left" : [0, 0, 0, 0, 0, -1, 0, 1],
+        "right": [0, 0, 0, 0, 0, 0, 0, 0],
+        "straight": [0, 0, 0, 0, 0, -1, 0, 1]
+    }
+    controllerYawlm = {
+        "left" : [0, 0, 0, 0, 0, 0, 0, 0],
+        "right": [0, 0, 0, 0, 0, -1, 0, 1],
+        "straight": [0, 0, 0, 0, 0, -1, 0, 1]
+    }
+    
+    controllerLift0 = [-1, -1, 1, 0, 0, 0, -1, -1]
+    controllerLift1 = [0, 0, -1, -1, -1, -1, 1, 0]
+
+    angle = {
+        "left": [-0.3, 0.5, 0, -0.5, -0.3, 0.01, 0, -0.01],
+        "right": [-0.3, 0.01, 0, -0.01, -0.3, -0.5, 0, 0.5],
+        "straight": [-0.3, 0, 0, 0, -0.3, 0, 0, 0]
+    }
+
+    for j in range(0, 100):
+        if j % int(speed.get()) == 0:
+            viewer.render()
+        mujoco.mj_step(model, data)
+
     while viewer.is_alive and i < N:
 
+        if phase == 0 and data.joint('pitch_front_left').qpos[0] <= angle[viewer._movement][0]:
+            phase = 1
+        elif phase == 1 and data.joint('yaw_front_left').qpos[0] <= angle[viewer._movement][1]:
+            phase = 2
+        elif phase == 2 and data.joint('pitch_front_left').qpos[0] >= angle[viewer._movement][2]:
+            phase = 3
+        elif phase == 3 and data.joint('yaw_front_left').qpos[0] >= angle[viewer._movement][3]:
+            phase = 4
+        elif phase == 4 and data.joint('pitch_front_right').qpos[0] <= angle[viewer._movement][4]:
+            phase = 5
+        elif phase == 5 and data.joint('yaw_front_right').qpos[0] >= angle[viewer._movement][5]:
+            phase = 6
+        elif phase == 6 and data.joint('pitch_front_right').qpos[0] >= angle[viewer._movement][6]:
+            phase = 7
+        elif phase == 7 and data.joint('yaw_front_right').qpos[0] <= angle[viewer._movement][7]:
+            phase = 0
+
+        data.ctrl[0] = controllerYawlf[viewer._movement][phase] * (-1) # yaw_front_left (GROUP 0)
+        data.ctrl[1] = controllerLift0[phase] # lift_front_left (GROUP 0)
+        data.ctrl[3] = controllerYawrf[viewer._movement][phase] * (-1) # yaw_front_right (GROUP 1)
+        data.ctrl[4] = controllerLift1[phase] # lift_front_right (GROUP 1)
+        data.ctrl[6] = controllerYawlm[viewer._movement][phase] # yaw_mid_left (GROUP 1)
+        data.ctrl[7] = controllerLift1[phase] # lift_mid_left (GROUP 1)
+        data.ctrl[9] = controllerYawrm[viewer._movement][phase] # yaw_mid_right (GROUP 0)
+        data.ctrl[10] = controllerLift0[phase] # lift_mid_right (GROUP 0)
+        data.ctrl[12] = controllerYawrb[viewer._movement][phase] * (-1) # yaw_back_right (GROUP 1)
+        data.ctrl[13] = controllerLift1[phase] # lift_back_right (GROUP 1)
+        data.ctrl[15] = controllerYawlb[viewer._movement][phase] * (-1) # yaw_back_left (GROUP 0)
+        data.ctrl[16] = controllerLift0[phase] # lift_back_left (GROUP 0)
+
         if i % int(speed.get()) == 0:
-            if live.get() == True:
-                viewer.render()
-            else:
-                img = viewer.read_pixels()
-                frames.append(img)
+            viewer.render()
+            # print(viewer._movement)
         i += 1
         mujoco.mj_step(model, data)
     viewer.close()
-
-    if not live.get():
-        media.write_video(video_directory.get(), frames, fps=30)
-        print("Video finished!")
 
 def save_setting():
 
@@ -205,7 +233,7 @@ load_btn = Button(window, text="Load", width=14, command=load_setting).grid(row=
 if (len(sys.argv) > 1):
     filename = sys.argv[1]
 else:
-    filename = "default_control_box.txt"
+    filename = "default_control.txt"
 
 load_setting(filename)
 print("Loading settings from ", filename)

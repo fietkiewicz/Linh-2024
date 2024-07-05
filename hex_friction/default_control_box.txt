@@ -1,7 +1,7 @@
 True
-4
-270
 20
+0
+0.5
 0
 True
 video.mp4
