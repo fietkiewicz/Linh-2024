@@ -2,12 +2,12 @@
 Year #2 of summer research with Linh Tran
 
 1. cpp: Make a C++ version of the NEURON/Mujoco simulation from 2023. We want to see if it's faster than Python.
-2. hex_control1
-3. hex_control2
-4. hex_rangefinder
-5. hexapod1
-6. hexapod2
-7. hexapod_2023
-8. hexapodview
-9. rat_legs
-10. rat_legs2
+2. hex_control1: Has manual entry of parameters for force and angle for hexapod (hex_manual.py) and program to control hexapod in direction (user steers using arrow keys -- hex_control.py)
+3. hex_control2: Has the manual entry for parameters for force and angle for hexapod, for every legs instead of two set of legs in hex_control_1
+4. hex_rangefinder: Has the program that has a programmed hexapod to follow the ball using rangefinder
+5. hexapod1: Program trying to have the hexapod walk in a big circle
+6. hexapod2: Draft
+7. hexapod_2023: Original hexapod1 from last year
+8. hexapodview: Program that has the camera follow the object/hexapod
+9. rat_legs: Waking rat legs
+10. rat_legs2: Better walking rat legs with friction
