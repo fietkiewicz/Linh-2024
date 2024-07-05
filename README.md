@@ -7,7 +7,6 @@ Year #2 of summer research with Linh Tran
 4. hex_control2: Has the manual entry for parameters for force and angle for hexapod, for every legs instead of two set of legs in hex_control_1
 5. hex_rangefinder: Has the program that has a programmed hexapod to follow the ball using rangefinder
 6. hexapod1: Program trying to have the hexapod walk in a big circle
-7. hexapod2: Draft
 8. hexapod_2023: Original hexapod1 from last year
 9. hexapodview: Program that has the camera follow the object/hexapod
 10. rat_legs: Waking rat legs
